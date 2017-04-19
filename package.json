@@ -4,15 +4,17 @@
   "description": "Tool for bundling Viacom shared components, making them easy to add to Viacom's Nexus NPM repo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "clear && rm -rf test && via-bundle -d"
   },
   "author": "Joe Francia",
   "license": "ISC",
   "preferGlobal": "true",
   "bin": {
-    "snippet": "./index.js"
+    "via-bundle": "./index.js"
   },
   "dependencies": {
+    "fs-extra": "^2.1.2",
+    "linereader": "^1.1.0",
     "prompt": "^1.0.0",
     "shelljs": "^0.7.7"
   }

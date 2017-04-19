@@ -1,0 +1,6 @@
+.gitignore
+*.rf
+/node_modules/
+/.git/
+/testComponent/
+/test/
