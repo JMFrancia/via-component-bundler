@@ -1,9 +1,12 @@
 # <package-name>
+v<package-version>
 Developed by <dev-name> (<dev-email>)
 
-## Dependencies
+//Insert brief summary of package here
 
-//Insert component dependencies here
+## Peer Dependencies
+
+//Include here any peer dependencies that you think devs should know about, such as moment.js
 
 ## Instructions
 
@@ -12,7 +15,7 @@ Developed by <dev-name> (<dev-email>)
 1. Log in to the Viacom Nexus NPM repo
 2. From your project folder, run the command:
 
-npm install <user-name>
+npm install <package-name>
 
 ### Usage
 
@@ -22,10 +25,14 @@ npm install <user-name>
 
 //Insert input option descriptions (if any)
 
+### Outputs
+
+//Insert list of output descriptions (if any)
+
 ### Properties
 
-//Insert property descriptions (if any)
+//Insert publically accessible property descriptions (if any)
 
 ### Methods
 
-//Insert method descriptions (if any)
+//Insert publically accessible method descriptions (if any)

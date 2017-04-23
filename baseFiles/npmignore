@@ -1,6 +1,7 @@
 .idea
 *.sass
 *.sh
+/demo/
 /spec/
 /typings.json
 /typings/
