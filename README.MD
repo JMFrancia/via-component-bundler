@@ -36,22 +36,22 @@ From your console, type "via-bundle"
 
 You will be prompted to input the following information:
 
-.* Directory location of your component
+* Directory location of your component
 (The directory which contains your target component's files)
 
-.* Target directory for output
+* Target directory for output
 (The directory in which you would like your component-bundle to be generated)
 
-.* Name of your package
+* Name of your package
 (The name of your package as it will be represented in the NPM repo)
 
-.* Your name
+* Your name
 (The name of the package's developer / owner)
 
-.* Your email
+* Your email
 (The email of the package's developer / owner)
 
-.* Starting version
+* Starting version
 (The initial version of this package to be published)
 
 #### Step 2: Update package.json of your new bundle
