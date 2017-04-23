@@ -18,15 +18,15 @@ npm install -g via-component-bundler
 
 In order for a component (referred to as your 'target') to be bundled by via-component-bundler, it must adhere to certain requirements:
 
-*. The via-component-bundler is expecting all required files and sub-directories for the target component (including tests, styles, etc.) to exist within in a single directory.
+* The via-component-bundler is expecting all required files and sub-directories for the target component (including tests, styles, etc.) to exist within in a single directory.
 
-*. The via-component-bundler is expecting there to be exactly one NgModule file existing on the topmost level within the component directory, such as an index.ts or <component-name>.module.ts.
+* The via-component-bundler is expecting there to be exactly one NgModule file existing on the topmost level within the component directory, such as an index.ts or <component-name>.module.ts.
 
-*. If the component relies on other custom components, those custom components must be bundled and uploaded to Nexus before the target component. For instance, if you have a custom date-range-picker component which relies on a custom single-date-picker component, you must bundle and upload the single-date-picker component to the NPM repo, and then update the dependencies on your date-range-picker so that it is pulling the single-date-picker from NPM rather than searching for it locally.
+* If the component relies on other custom components, those custom components must be bundled and uploaded to Nexus before the target component. For instance, if you have a custom date-range-picker component which relies on a custom single-date-picker component, you must bundle and upload the single-date-picker component to the NPM repo, and then update the dependencies on your date-range-picker so that it is pulling the single-date-picker from NPM rather than searching for it locally.
 
-*. The exception to the above rule is if a custom component exists for NO OTHER purpose than supporting your target component, in which case it may be included as a sub-directory within your target component directory. Make certain that all internal references remain consistent - IE your target component knows where to find it.
+* The exception to the above rule is if a custom component exists for NO OTHER purpose than supporting your target component, in which case it may be included as a sub-directory within your target component directory. Make certain that all internal references remain consistent - IE your target component knows where to find it.
 
-*. The via-component-bundler lists Angular2 and Typescript as peer-dependencies, since it is not configured to transpile JS. In other words, it's designed to be used for Angular2 / typescript files.
+* The via-component-bundler lists Angular2 and Typescript as peer-dependencies, since it is not configured to transpile JS. In other words, it's designed to be used for Angular2 / typescript files.
 
 ### Usage
 
