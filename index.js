@@ -121,7 +121,7 @@ function activate(inputs) {
                 console.log('Copying component files...');
                 var compIndex = srcDir + '/index.ts';
                 var specRegex = /.+\.spec\.ts$/i;
-                var moduleRegex = /.+\.module\.ts/i;
+                var moduleRegex = /(.+\.module\.ts)|(index\.ts)/i;
                 getFileNames(inputs.componentDir).forEach(function(file) {
                     var dest = specRegex.test(file) ? testsDir : srcDir;
                     var fileLoc = inputs.componentDir + '/' + file;
@@ -192,11 +192,6 @@ function activate(inputs) {
     });
 }
 
-function testGetExports() {
-    getExports('../via-date-picker-ts/src/via-datepicker.module.ts');
-    getExports('../via-date-range-picker/src/via-daterange.module.ts');
-}
-
 function getExports(moduleFile) {
     var matchPatterns = [
         /export class (.*?)\s+{/i, //case: "Export class <export> {}"
@@ -220,7 +215,6 @@ function getExports(moduleFile) {
                     }
                 }
             });
-            //  if(result){console.log('Inside result: ' + result);}
         });
         lineReader.on('error', function(err) {
             var errMsg = 'Error using linereader for file ' + moduleFile + ': ' + err;
