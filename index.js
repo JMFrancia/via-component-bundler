@@ -6,6 +6,7 @@ var prompt = require('prompt');
 var shell = require('shelljs');
 var fs = require('fs-extra');
 var readline = require('readline');
+var packageNameValidator = require('validate-npm-package-name');
 
 //Check for debug mode
 var flag = process.argv[2];
@@ -43,7 +44,8 @@ var queries = {
             description: 'Name of your package',
             type: 'string',
             conform: function(name) {
-                return validateNewDirectory(destDirectory, name);
+                return validatePackageName(name) &&
+                       validateNewDirectory(destDirectory, name);
             },
             message: 'Please try again',
             required: true
@@ -51,14 +53,14 @@ var queries = {
         devName: {
             description: 'Your name',
             type: 'string',
-            pattern: /(([a-z]+)\s*)/gi,
+            pattern: /^([a-z]+\s{0,1})*$/gi,
             message: 'Letters and spaces only, please',
             required: true
         },
         devEmail: {
             description: 'Your email',
             type: 'string',
-            pattern: /[a-z0-9]+\@[a-z0-9]+\.([a-z]{2,3})/gi,
+            pattern: /^[a-z0-9]+\@[a-z0-9]+\.([a-z]{2,3})$/gi,
             message: 'Invalid email, please try again',
             required: true
         },
@@ -401,6 +403,23 @@ function handleError(err) {
         console.error('Exiting...');
         process.exit();
     }
+}
+
+/**
+ * Validates package name for a new package using validate-npm-package-name
+ * @param  {string} name Name for new package
+ * @return {boolean}      True if package name is valid
+ */
+function validatePackageName(name){
+  var validation = packageNameValidator(name);
+  if(!validation.validForNewPackages){
+    console.error('Invalid package name:');
+    validation.warnings.forEach(function(warning){
+      console.error('- ' + warning);
+    });
+    return false;
+  }
+  return true;
 }
 
 /**
