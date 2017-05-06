@@ -11,6 +11,9 @@ var readline = require('readline');
 var flag = process.argv[2];
 var debug = (flag == '-d' || flag == '-debug');
 
+//Used to persist destination directory path between prompts
+var destDirectory;
+
 //Prompts for user input
 var queries = {
     properties: {
@@ -26,8 +29,12 @@ var queries = {
         targetDir: {
             description: 'Target directory for output',
             type: 'string',
-            conform: function(input) {
-                return validateDirectory(input);
+            conform: function(dir) {
+                if (validateDirectory(dir)){
+                  destDirectory = dir;
+                  return true;
+                }
+                return false;
             },
             message: 'Please try again',
             required: true
@@ -35,8 +42,11 @@ var queries = {
         packageName: {
             description: 'Name of your package',
             type: 'string',
-            pattern: /^(?!\.)^(?!node_modules)([^@\s+%]+)/gi,
-            message: 'Invalid package name, please try again',
+            conform: function(name) {
+                console.log('Dest: ' + destDirectory);
+                return validateNewDirectory(destDirectory, name);
+            },
+            message: 'Please try again',
             required: true
         },
         devName: {
@@ -277,7 +287,7 @@ function makeDirectory(location, name) {
         var target = location + '/' + name;
         fs.mkdir(target, function(err) {
             if (err && err.code == 'EEXIST') {
-                var errMsg = 'Error: ' + target + ' already exists, please choose another target directory';
+                var errMsg = target + ' already exists, please choose another target directory';
                 console.error(errMsg);
                 reject(errMsg);
             }
@@ -401,7 +411,7 @@ function handleError(err) {
  * @return {boolean}     True if new path is valid
  */
 function validateNewDirectory(path, name){
-  if(!validateDirectoryPath(path)){
+  if(!validateDirectory(path)){
     return false;
   }
   if(fs.existsSync(path + '/' + name)){
@@ -425,5 +435,6 @@ function validateDirectory(path){
     console.error('Directory ' + path + ' does not exist')
     return false;
   }
+  console.log('Directory exists');
   return true;
 }
