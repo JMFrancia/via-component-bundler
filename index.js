@@ -43,7 +43,6 @@ var queries = {
             description: 'Name of your package',
             type: 'string',
             conform: function(name) {
-                console.log('Dest: ' + destDirectory);
                 return validateNewDirectory(destDirectory, name);
             },
             message: 'Please try again',
@@ -107,7 +106,7 @@ function activate(inputs) {
       '<dev-email>': inputs.devEmail
     };
 
-    console.log('Creating new bundle directory at ' + inputs.targetDir + '/' + inputs.packageName + '...');
+    console.log('Creating new bundle directory at ' + inputs.targetDir + '/' + inputs.packageName + ' ...');
 
     //Target directories to create
     var mainDir = inputs.targetDir + '/' + inputs.packageName;
@@ -435,6 +434,5 @@ function validateDirectory(path){
     console.error('Directory ' + path + ' does not exist')
     return false;
   }
-  console.log('Directory exists');
   return true;
 }
