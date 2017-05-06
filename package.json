@@ -4,6 +4,7 @@
   "description": "Tool for bundling Viacom shared components, making them easy to add to Viacom's Nexus NPM repo",
   "main": "index.js",
   "scripts": {
+    "start": "clear && via-bundle",
     "test": "clear && rm -rf test && via-bundle -d"
   },
   "author": "Joe Francia",

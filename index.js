@@ -17,15 +17,19 @@ var queries = {
         componentDir: {
             description: 'Directory location of your component',
             type: 'string',
-            pattern: /^[^\\/?%*:|"<>\.]+$/gi,
-            message: 'Invalid directory name, please try again',
+            conform: function(input) {
+                return validateDirectory(input);
+            },
+            message: 'Please try again',
             required: true
         },
         targetDir: {
             description: 'Target directory for output',
             type: 'string',
-            pattern: /^[^\\/?%*:|"<>]+$/gi,
-            message: 'Invalid directory name, please try again',
+            conform: function(input) {
+                return validateDirectory(input);
+            },
+            message: 'Please try again',
             required: true
         },
         packageName: {
@@ -45,7 +49,7 @@ var queries = {
         devEmail: {
             description: 'Your email',
             type: 'string',
-            pattern: /[a-z0-9]+\@[a-z0-9]+\.([a-z]{3}|[a-z]{2)/gi,
+            pattern: /[a-z0-9]+\@[a-z0-9]+\.([a-z]{2,3})/gi,
             message: 'Invalid email, please try again',
             required: true
         },
@@ -388,4 +392,38 @@ function handleError(err) {
         console.error('Exiting...');
         process.exit();
     }
+}
+
+/**
+ * Returns true if path + '/' + name is a valid path for a new directory
+ * @param  {string} path Path to parent directory
+ * @param  {string} name Name of new directory
+ * @return {boolean}     True if new path is valid
+ */
+function validateNewDirectory(path, name){
+  if(!validateDirectoryPath(path)){
+    return false;
+  }
+  if(fs.existsSync(path + '/' + name)){
+    console.error('Directory ' + path + '/' + name + ' already exists');
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Returns true if directory path provided is valid
+ * @param  {string} path Path of directory
+ * @return {boolean}      True if directory path is valid and exists
+ */
+function validateDirectory(path){
+  if(!(/^((\.{1,2})|\w+)(\/((\.{1,2})|\w+))*$/gi.test(path))){
+    console.error('Invalid directory name');
+    return false;
+  }
+  if(!fs.existsSync(path)){
+    console.error('Directory ' + path + ' does not exist')
+    return false;
+  }
+  return true;
 }
